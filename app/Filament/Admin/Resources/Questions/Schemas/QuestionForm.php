@@ -3,7 +3,8 @@
 namespace App\Filament\Admin\Resources\Questions\Schemas;
 
 use Filament\Schemas\Schema;
-use Filament\Widgets\Form;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 
 class QuestionForm
 {
@@ -11,11 +12,11 @@ class QuestionForm
     {
         return $schema
             ->components([
-                Form\Textarea::make('text')
+                Textarea::make('text')
                     ->label('Question Text')
                     ->required()
                     ->rows(3),
-                Form\Select::make('type')
+                Select::make('type')
                     ->label('Type')
                     ->options([
                         'grammar' => 'Grammar',

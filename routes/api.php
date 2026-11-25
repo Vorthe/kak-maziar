@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassRequestController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::apiResource('articles', ArticleController::class)->only(['index', 'show']);
 
-Route::prefix('test')->group(function () {
-    Route::get('/questions', [TestController::class, 'questions']);
-    Route::post('/submit', [TestController::class, 'submit']);
+Route::prefix('classes')->group(function () {
+    Route::post('/request', [ClassRequestController::class, 'request']);
+    Route::get('/my-requests', [ClassRequestController::class, 'myRequests']);
+    Route::post('/{classRequest}/confirm', [ClassRequestController::class, 'confirm']);
 });

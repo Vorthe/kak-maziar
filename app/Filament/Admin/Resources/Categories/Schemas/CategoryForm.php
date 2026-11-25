@@ -3,7 +3,7 @@
 namespace App\Filament\Admin\Resources\Categories\Schemas;
 
 use Filament\Schemas\Schema;
-use Filament\Widgets\Form;
+use Filament\Forms\Components\TextInput;
 
 class CategoryForm
 {
@@ -11,11 +11,11 @@ class CategoryForm
     {
         return $schema
             ->components([
-                Form\TextInput::make('name')
+                TextInput::make('name')
                     ->label('Name')
                     ->required()
                     ->maxLength(255),
-                Form\TextInput::make('slug')
+                TextInput::make('slug')
                     ->label('Slug')
                     ->required()
                     ->maxLength(255)

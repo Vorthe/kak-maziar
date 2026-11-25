@@ -9,6 +9,7 @@ import Articles from './pages/Articles';
 import ArticleDetail from './pages/ArticleDetail';
 import PlacementTest from './pages/PlacementTest';
 import TestResult from './pages/TestResult';
+import StudentDashboard from './pages/StudentDashboard';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -92,6 +93,12 @@ export default function App() {
           path="/test-result"
           element={
             <TestResult user={user} />
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <StudentDashboard user={user} />
           }
         />
         <Route
