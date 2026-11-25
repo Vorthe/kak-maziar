@@ -7,6 +7,8 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 import Articles from './pages/Articles';
 import ArticleDetail from './pages/ArticleDetail';
+import PlacementTest from './pages/PlacementTest';
+import TestResult from './pages/TestResult';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -78,6 +80,18 @@ export default function App() {
           path="/articles/:slug"
           element={
             <ArticleDetail user={user} />
+          }
+        />
+        <Route
+          path="/placement-test"
+          element={
+            <PlacementTest />
+          }
+        />
+        <Route
+          path="/test-result"
+          element={
+            <TestResult user={user} />
           }
         />
         <Route

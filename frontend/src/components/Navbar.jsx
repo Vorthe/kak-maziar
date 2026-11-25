@@ -22,6 +22,7 @@ export default function Navbar({ user, onLogout, onNavigate }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <NavLink label="Home" to="/" currentPath="/" onNavigate={onNavigate} />
         <NavLink label="Articles" to="/articles" currentPath="/articles" onNavigate={onNavigate} />
+        <NavLink label="Placement Test" to="/placement-test" currentPath="/placement-test" onNavigate={onNavigate} />
 
         {user ? (
           <>
