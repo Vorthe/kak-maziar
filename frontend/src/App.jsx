@@ -5,11 +5,16 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import About from './pages/About';
+import Podcasts from './pages/Podcasts';
+import Favorites from './pages/Favorites';
 import Articles from './pages/Articles';
 import ArticleDetail from './pages/ArticleDetail';
 import PlacementTest from './pages/PlacementTest';
 import TestResult from './pages/TestResult';
 import StudentDashboard from './pages/StudentDashboard';
+import Shop from './pages/Shop';
+import MyOrders from './pages/MyOrders';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -72,6 +77,24 @@ export default function App() {
           }
         />
         <Route
+          path="/about"
+          element={
+            <About user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
+          path="/podcasts"
+          element={
+            <Podcasts user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <Favorites user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
           path="/articles"
           element={
             <Articles user={user} />
@@ -93,6 +116,18 @@ export default function App() {
           path="/test-result"
           element={
             <TestResult user={user} />
+          }
+        />
+        <Route
+          path="/shop"
+          element={
+            <Shop />
+          }
+        />
+        <Route
+          path="/my-orders"
+          element={
+            <MyOrders />
           }
         />
         <Route
