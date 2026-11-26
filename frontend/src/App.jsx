@@ -5,6 +5,9 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import About from './pages/About';
+import Podcasts from './pages/Podcasts';
+import Favorites from './pages/Favorites';
 import Articles from './pages/Articles';
 import ArticleDetail from './pages/ArticleDetail';
 import PlacementTest from './pages/PlacementTest';
@@ -71,6 +74,24 @@ export default function App() {
           path="/"
           element={
             <Home user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <About user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
+          path="/podcasts"
+          element={
+            <Podcasts user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <Favorites user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
           }
         />
         <Route
