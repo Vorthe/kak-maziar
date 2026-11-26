@@ -2,63 +2,39 @@ import React from 'react';
 
 export default function Navbar({ user, onLogout, onNavigate }) {
   return (
-    <nav
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '1rem 2rem',
-        backgroundColor: '#ffffff',
-        borderBottom: '1px solid #e5e7eb',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <span style={{ fontSize: '1.5rem', fontWeight: 700, color: '#111827' }}>
-          kak-maziar
-        </span>
-      </div>
+    <nav className="bg-[#3E2723] text-[#F4EBD9] px-6 py-4 font-['Cinzel','Georgia',serif] border-b border-[#D4AF37]">
+      <div className="flex items-center justify-between gap-4">
+        <span className="text-2xl font-bold tracking-wide">kak-maziar</span>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <NavLink label="Home" to="/" currentPath="/" onNavigate={onNavigate} />
-        <NavLink label="Articles" to="/articles" currentPath="/articles" onNavigate={onNavigate} />
-        <NavLink label="Placement Test" to="/placement-test" currentPath="/placement-test" onNavigate={onNavigate} />
-        <NavLink label="Dashboard" to="/dashboard" currentPath="/dashboard" onNavigate={onNavigate} />
+        <div className="flex items-center gap-2">
+          <NavLink label="Home" to="/" currentPath="/" onNavigate={onNavigate} />
+          <NavLink label="Articles" to="/articles" currentPath="/articles" onNavigate={onNavigate} />
+          <NavLink label="About" to="/about" currentPath="/about" onNavigate={onNavigate} />
+          <NavLink label="Podcasts" to="/podcasts" currentPath="/podcasts" onNavigate={onNavigate} />
+          <NavLink label="Favorites" to="/favorites" currentPath="/favorites" onNavigate={onNavigate} />
+          <NavLink label="Shop" to="/shop" currentPath="/shop" onNavigate={onNavigate} />
+          <NavLink label="Placement Test" to="/placement-test" currentPath="/placement-test" onNavigate={onNavigate} />
+          <NavLink label="Dashboard" to="/dashboard" currentPath="/dashboard" onNavigate={onNavigate} />
 
-        {user ? (
-          <>
-            <span
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#f3f4f6',
-                borderRadius: '6px',
-                fontSize: '0.9rem',
-                color: '#374151',
-              }}
-            >
-              Hello, {user.name}
-            </span>
-            <button
-              onClick={onLogout}
-              style={{
-                padding: '0.5rem 1.2rem',
-                backgroundColor: '#dc2626',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '0.9rem',
-              }}
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <NavLink label="Login" to="/login" currentPath="/login" onNavigate={onNavigate} />
-            <NavLink label="Register" to="/register" currentPath="/register" onNavigate={onNavigate} />
-          </>
-        )}
+          {user ? (
+            <>
+              <span className="px-3 py-1.5 rounded bg-[#F4EBD9] text-[#3E2723] text-xs font-medium">
+                Hello, {user.name}
+              </span>
+              <button
+                onClick={onLogout}
+                className="px-4 py-1.5 bg-red-600 text-white rounded-md font-medium text-sm hover:bg-red-700 transition"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink label="Login" to="/login" currentPath="/login" onNavigate={onNavigate} />
+              <NavLink label="Register" to="/register" currentPath="/register" onNavigate={onNavigate} />
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );
@@ -69,17 +45,11 @@ function NavLink({ label, to, currentPath, onNavigate }) {
   return (
     <button
       onClick={() => onNavigate(to)}
-      style={{
-        padding: '0.5rem 1rem',
-        backgroundColor: isActive ? '#111827' : '#f3f4f6',
-        color: isActive ? '#ffffff' : '#374151',
-        border: 'none',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        fontFamily: 'inherit',
-        fontSize: '0.95rem',
-        transition: 'background-color 0.15s',
-      }}
+      className={`px-3 py-1.5 rounded-md font-medium text-sm transition-colors duration-150 ${
+        isActive
+          ? 'bg-[#3E2723] text-[#F4EBD9]'
+          : 'bg-[#F4EBD9] text-[#3E2723] hover:bg-[#D4AF37]'
+      }`}
     >
       {label}
     </button>

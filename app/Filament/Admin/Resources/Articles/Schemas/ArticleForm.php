@@ -15,9 +15,8 @@ class ArticleForm
             ->components([
                 Select::make('category_id')
                     ->label('Category')
-                    ->relationship('category', 'Name')
-                    ->required()
-                    ->searchable(),
+                    ->relationship('category', 'name')
+                    ->required(),
                 TextInput::make('title')
                     ->label('Title')
                     ->required()
@@ -32,6 +31,11 @@ class ArticleForm
                     ->required()
                     ->numeric()
                     ->default(1),
+                \Filament\Forms\Components\Textarea::make('content')
+                    ->label('Content')
+                    ->required()
+                    ->rows(10)
+                    ->columnSpanFull(),
                 Toggle::make('is_published')
                     ->label('Is Published')
                     ->default(false),

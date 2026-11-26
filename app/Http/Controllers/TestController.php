@@ -42,47 +42,54 @@ class TestController extends Controller
      */
     public function submit(Request $request): JsonResponse
     {
-        $data = $request->validate([
+        $answers = $request->validate([
             'answers' => ['required', 'array'],
-            'answers.*' => ['required', 'integer', 'exists:options,id'],
-        ]);
+            'answers.*.question_id' => ['required', 'integer'],
+            'answers.*.option_id' => ['required', 'integer', 'exists:options,id'],
+        ])['answers'];
 
-        $answers = $data['answers'];
-        $totalQuestions = Question::count();
+        // Get the authenticated user
+        $userId = auth()->id();
 
-        // Calculate score
+        // Count correct answers
         $score = 0;
-        $attempt = Attempt::create([
-            'user_id' => Auth::id(),
-            'score' => 0,
-            'level' => 'A1',
-        ]);
-
-        foreach ($answers as $questionId => $optionId) {
-            $option = Option::find($optionId);
-            if ($option && $option->question_id == $questionId && $option->is_correct) {
+        foreach ($answers as $answer) {
+            $option = Option::find($answer['option_id']);
+            if ($option && $option->is_correct) {
                 $score++;
             }
-
-            AttemptAnswer::create([
-                'attempt_id' => $attempt->id,
-                'question_id' => $questionId,
-                'option_id' => $optionId,
-            ]);
         }
 
         // Determine level based on score
-        $level = $this->calculateLevel($score, $totalQuestions);
-        $attempt->score = $score;
-        $attempt->level = $level;
-        $attempt->save();
+        if ($score >= 26) {
+            $level = 'C1';
+        } elseif ($score >= 20) {
+            $level = 'B2';
+        } elseif ($score >= 14) {
+            $level = 'B1';
+        } elseif ($score >= 8) {
+            $level = 'A2';
+        } else {
+            $level = 'A1';
+        }
 
-        return response()->json([
-            'attempt' => $attempt,
+        // Create Attempt record
+        $attempt = Attempt::create([
+            'user_id' => $userId,
             'score' => $score,
-            'total' => $totalQuestions,
-            'percentage' => $totalQuestions > 0 ? round(($score / $totalQuestions) * 100, 1) : 0,
+            'level' => $level,
         ]);
+
+        // Save AttemptAnswer records
+        foreach ($answers as $answer) {
+            AttemptAnswer::create([
+                'attempt_id' => $attempt->id,
+                'question_id' => $answer['question_id'],
+                'option_id' => $answer['option_id'],
+            ]);
+        }
+
+        return response()->json(['score' => $score, 'level' => $level]);
     }
 
     /**

@@ -17,6 +17,12 @@ class OptionForm
                     ->label('Option Text')
                     ->required()
                     ->maxLength(255),
+                Select::make('question_id')
+                    ->label('Question')
+                    ->relationship('question', 'text')
+                    ->required()
+                    ->searchable()
+                    ->preload(),
                 Toggle::make('is_correct')
                     ->label('Is Correct Answer')
                     ->helperText('Check this box if this is the correct answer.')

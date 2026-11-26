@@ -28,54 +28,60 @@ export default function Home({ user, onLogin }) {
 
   return (
     <div>
-      <header
-        style={{
-          backgroundColor: '#111827',
-          color: 'white',
-          padding: '3rem 2rem',
-          textAlign: 'center',
-        }}
-      >
-        <h1 style={{ marginBottom: '1rem' }}>Welcome to kak-maziar</h1>
-        <p style={{ color: '#9ca3af', fontSize: '1.1rem' }}>
-          {user ? `Hello, ${user.name}! Explore our articles.` : 'Please login or register to get started.'}
-        </p>
+      {/* Hero Section - Model B */}
+      <header className="bg-[#F4EBD9] py-12 px-4 sm:py-16 sm:px-8 text-center">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-[Cinzel] text-[#3E2723] leading-tight">
+            Welcome to kak-maziar
+          </h1>
+          <p className="mt-3 text-[#6B5A4A] text-lg max-w-xl">
+            {user
+              ? `Hello, ${user.name}! Explore our articles and say hi.`
+              : 'Please login or register to get started.'}
+          </p>
+          <button
+            onClick={() => navigate('/placement-test')}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#7B241C] text-[#F4EBD9] font-[Cinzel] rounded-md font-semibold transition hover:bg-[#D4AF37] hover:text-[#3E2723] active:transform-active-transform"
+          >
+            Take the placement test
+          </button>
+        </div>
       </header>
 
-      <main style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
-        {error && <p style={{ color: '#dc2626', marginBottom: '1rem' }}>{error}</p>}
+      <main className="max-w-6xl mx-auto px-4 pb-12 sm:px-8">
+        {error && <p className="text-red-600 mb-4">{error}</p>}
 
         {user ? (
-          <section style={{ marginBottom: '2rem' }}>
-            <h2 style={{ marginBottom: '1rem' }}>Management</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <section className="mb-6">
+            <h2 className="text-2xl font-[Cinzel] text-[#3E2723] mb-3">Management</h2>
+            <div className="flex flex-col gap-2">
               <button
                 onClick={() => navigate('/articles')}
-                style={buttonStyle}
+                className="btn-primary"
               >
                 Browse Articles
               </button>
               <button
                 onClick={handleLogout}
-                style={{ ...buttonStyle, backgroundColor: '#dc2626' }}
+                className="btn-primary bg-red-600 hover:bg-red-700 text-white"
               >
                 Logout
               </button>
             </div>
           </section>
         ) : (
-          <section style={{ marginBottom: '2rem' }}>
-            <h2 style={{ marginBottom: '1rem' }}>Login or Register</h2>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+          <section className="mb-6">
+            <h2 className="text-2xl font-[Cinzel] text-[#3E2723] mb-3">Login or Register</h2>
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => navigate('/login')}
-                style={buttonStyle}
+                className="btn-primary"
               >
                 Login
               </button>
               <button
                 onClick={() => navigate('/register')}
-                style={{ ...buttonStyle, backgroundColor: '#3b82f6' }}
+                className="btn-primary bg-[#3B82F6] hover:bg-[#2563EB] text-white"
               >
                 Register
               </button>
@@ -83,37 +89,53 @@ export default function Home({ user, onLogin }) {
           </section>
         )}
 
+        {/* Coffee Break English Section */}
+        <section className="mb-10">
+          <div className="bg-[#F4EBD9] rounded-xl p-8 sm:p-10">
+            <h2 className="text-2xl font-[Cinzel] text-[#3E2723] text-center mb-2">
+              ☕ Coffee Break English
+            </h2>
+            <p className="text-[#6B5A4A] text-center mb-6 max-w-2xl">
+              Learn English in just a few minutes a day. Perfect for your daily coffee break.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { title: '15-Minute Lessons', description: 'Short, focused lessons you can finish in the time it takes to drink a coffee.' },
+                { title: 'Daily Practice', description: 'Build consistency with daily listening and speaking exercises.' },
+                { title: 'Real-World English', description: 'Learn practical vocabulary and idioms you can use immediately.' },
+                { title: 'Audio & Video', description: 'Native speaker audio and video lessons for better listening skills.' },
+              ].map((item, index) => (
+                <div key={index} className="card">
+                  <h3 className="text-[#3E2723] font-[Cinzel] mb-1">{item.title}</h3>
+                  <p className="text-[#6B5A4A] text-sm">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section>
-          <h2 style={{ marginBottom: '1rem' }}>Latest Articles</h2>
+          <h2 className="text-2xl font-[Cinzel] text-[#3E2723] mb-4 text-center">
+            Latest Articles
+          </h2>
           {loading ? (
-            <p style={{ color: '#6b7280' }}>Loading articles...</p>
+            <p className="text-[#6B5A4A]">Loading articles...</p>
           ) : articles.length === 0 ? (
-            <p style={{ color: '#6b7280' }}>No articles available yet.</p>
+            <p className="text-[#6B5A4A]">No articles available yet.</p>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {articles.map((article) => (
-                <button
-                  key={article.id}
-                  onClick={() => navigate(`/articles/${article.slug}`)}
-                  style={articleCardStyle}
-                >
-                  <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{article.title}</h3>
-                  <p style={{ margin: 0, color: '#6b7280', fontSize: '0.9rem' }}>
+                <div key={article.id} className="card cursor-pointer">
+                  <h3 className="text-[#3E2723] font-[Cinzel] mt-1">{article.title}</h3>
+                  <p className="text-[#6B5A4A] text-sm mt-1">
                     {article.category?.name || 'No category'}
                   </p>
-                  <span
-                    style={{
-                      marginTop: '0.5rem',
-                      padding: '0.2rem 0.6rem',
-                      backgroundColor: '#e0e7ff',
-                      color: '#3730a3',
-                      borderRadius: '6px',
-                      fontSize: '0.8rem',
-                    }}
-                  >
-                    {article.level || '-'}
-                  </span>
-                </button>
+                  {article.level && (
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded bg-[#E0E7FF] text-[#3730A3] text-xs font-medium">
+                      Level: {article.level}
+                    </span>
+                  )}
+                </div>
               ))}
             </div>
           )}
@@ -122,29 +144,3 @@ export default function Home({ user, onLogin }) {
     </div>
   );
 }
-
-const buttonStyle = {
-  padding: '0.9rem 1.5rem',
-  backgroundColor: '#111827',
-  color: 'white',
-  border: 'none',
-  borderRadius: '6px',
-  cursor: 'pointer',
-  fontSize: '1rem',
-  fontWeight: 600,
-};
-
-const articleCardStyle = {
-  padding: '1.5rem',
-  backgroundColor: '#ffffff',
-  border: '1px solid #e5e7eb',
-  borderRadius: '8px',
-  cursor: 'pointer',
-  textAlign: 'left',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-  transition: 'box-shadow 0.15s',
-};
-
-articleCardStyle.onMouseEnter = {
-  boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-};
