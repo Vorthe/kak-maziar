@@ -10,6 +10,8 @@ import ArticleDetail from './pages/ArticleDetail';
 import PlacementTest from './pages/PlacementTest';
 import TestResult from './pages/TestResult';
 import StudentDashboard from './pages/StudentDashboard';
+import Shop from './pages/Shop';
+import MyOrders from './pages/MyOrders';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -93,6 +95,18 @@ export default function App() {
           path="/test-result"
           element={
             <TestResult user={user} />
+          }
+        />
+        <Route
+          path="/shop"
+          element={
+            <Shop />
+          }
+        />
+        <Route
+          path="/my-orders"
+          element={
+            <MyOrders />
           }
         />
         <Route

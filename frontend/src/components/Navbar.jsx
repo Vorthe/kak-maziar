@@ -23,6 +23,8 @@ export default function Navbar({ user, onLogout, onNavigate }) {
         <NavLink label="Home" to="/" currentPath="/" onNavigate={onNavigate} />
         <NavLink label="Articles" to="/articles" currentPath="/articles" onNavigate={onNavigate} />
         <NavLink label="Placement Test" to="/placement-test" currentPath="/placement-test" onNavigate={onNavigate} />
+        <NavLink label="Shop" to="/shop" currentPath="/shop" onNavigate={onNavigate} />
+        <NavLink label="My Orders" to="/my-orders" currentPath="/my-orders" onNavigate={onNavigate} />
         <NavLink label="Dashboard" to="/dashboard" currentPath="/dashboard" onNavigate={onNavigate} />
 
         {user ? (
