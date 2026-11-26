@@ -10,6 +10,9 @@ import ArticleDetail from './pages/ArticleDetail';
 import PlacementTest from './pages/PlacementTest';
 import TestResult from './pages/TestResult';
 import StudentDashboard from './pages/StudentDashboard';
+import About from './pages/About';
+import Podcasts from './pages/Podcasts';
+import Favorites from './pages/Favorites';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -69,6 +72,24 @@ export default function App() {
           path="/"
           element={
             <Home user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <About user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
+          path="/podcasts"
+          element={
+            <Podcasts user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <Favorites user={user} onLogin={handleLogin} onNavigate={handleNavigate} />
           }
         />
         <Route

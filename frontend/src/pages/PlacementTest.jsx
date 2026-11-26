@@ -13,7 +13,12 @@ export default function PlacementTest() {
     useEffect(() => {
         api.get("/api/test/questions")
             .then((res) => setQuestions(res.data.questions))
-            .catch((err) => console.error("Failed to load questions:", err));
+            .catch((err) => {
+                console.error("Failed to load questions:", err);
+                if (err.response?.status === 401) {
+                    navigate("/login");
+                }
+            });
     }, []);
 
     const handleOptionSelect = (optionId) => {
@@ -43,12 +48,12 @@ export default function PlacementTest() {
 
     const handleSubmit = async () => {
         try {
-            // Gather all answers
-            const answers = {};
+            // Gather all answers in the format [{ question_id, option_id }, ...]
+            const answers = [];
             questions.forEach((q, index) => {
                 const answer = selectedOptions[index];
                 if (answer !== undefined) {
-                    answers[q.id] = answer;
+                    answers.push({ question_id: q.id, option_id: answer });
                 }
             });
 
@@ -57,8 +62,8 @@ export default function PlacementTest() {
             // Map the API response to the expected format for TestResult
             const mappedResult = {
                 ...res.data,
-                level: res.data.attempt?.level,
-                user: res.data.attempt?.user,
+                level: res.data.level,
+                user: res.data.user || null,
             };
 
             setResult(mappedResult);

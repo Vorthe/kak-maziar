@@ -12,6 +12,8 @@ Route::post('/login', [AuthController::class, 'login'])->middleware(['web']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/test/questions', [TestController::class, 'questions']);
+    Route::post('/test/submit', [TestController::class, 'submit']);
 });
 
 Route::apiResource('articles', ArticleController::class)->only(['index', 'show']);
